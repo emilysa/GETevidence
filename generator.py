@@ -8,72 +8,74 @@ def main():
     # flags later.
     clinvar = "/home/emilysa/ChurchLab/clinvar-latest.vcf"
     genome = "/home/emilysa/ChurchLab/hu4040B8.vcf"
-    clinFile = vcf.Reader(open(clinvar, "r"))
-    genomeFile = vcf.Reader(open(genome, "r"))
+    clin_file = vcf.Reader(open(clinvar, "r"))
+    genome_file = vcf.Reader(open(genome, "r"))
     # Create a loop where, each step, the file with
     # the earliest line "steps forward".
-    clinRecord = clinFile.next()
-    genomeRecord = genomeFile.next()
-    for genomeRecord in genomeFile:
+    clin_record = clin_file.next()
+    genome_record = genome_file.next()
+    for genome_record in genome_file:
 
         #Check to see if chromosome match
-        if clinRecord.CHROM == genomeRecord.CHROM:
+        if clin_record.CHROM == genome_record.CHROM:
             #If they do, check to see if positions match
-            if clinRecord.POS > genomeRecord.POS:
+            if clin_record.POS > genome_record.POS:
                 #if the ClinVar position is greater, advance the genome's file
-                genomeRecord = genomeFile.next()
-            elif clinRecord.POS < genomeRecord.POS:
+                genome_record = genome_file.next()
+            elif clin_record.POS < genome_record.POS:
                 #if the genome's position is greater, advance the ClinVar file
-                clinRecord = clinFile.next()
+                clin_record = clin_file.next()
             else:
                 #Perfect matches
-                if clinRecord == genomeRecord:
+                if clin_record == genome_record:
                     print "Perfect Match!"
                     print "Match Record:",
-                    print genomeRecord
+                    print genome_record
                     print "Clin Record:",
-                    print clinRecord
+                    print clin_record
                     print "\n"
-                    genomeRecord = genomeFile.next()
-                    clinRecord = clinFile.next()
+                    genome_record = genome_file.next()
+                    clin_record = clin_file.next()
                 else:
                     #Edge Cases and how we're handling them
                     #If ALT = <CGA_CNVWIN>, filter this out
-                    if str(genomeRecord.ALT) == "[<CGA_CNVWIN>]":
-                        genomeRecord = genomeFile.next()
-                        clinRecord = clinFile.next()
+                    if str(genome_record.ALT) == "[<CGA_CNVWIN>]":
+                        genome_record = genome_file.next()
+                        clin_record = clin_file.next()
                     #If there are multiple ACC#
-                    elif genomeRecord.REF == clinRecord.REF:
+                    elif genome_record.REF == clin_record.REF:
                         print "Multiple Paths"
                         print "Match Record:",
-                        print genomeRecord
+                        print genome_record
                         print "Clin Record:",
-                        print clinRecord
+                        print clin_record
                         print "\n"
-                        genomeRecord = genomeFile.next()
-                        clinRecord = clinFile.next()
+                        genome_record = genome_file.next()
+                        clin_record = clin_file.next()
                     #If REF has different length
                     else:
-                        #If REF has different length, but are longer segments, include in results
-                        if (len(str(genomeRecord.ALT)) - len(genomeRecord.REF) == 2) and (len(str(genomeRecord.REF)) - len(str(clinRecord.REF))) == (len(str(genomeRecord.ALT)) - len(str(clinRecord.ALT))):
+                        #If REF has different length, but are longer segments,
+                        #include in results
+                        if (len(str(genome_record.ALT)) - len(genome_record.REF) == 2) and (len(str(genome_record.REF)) - len(str(clin_record.REF))) == (len(str(genome_record.ALT)) - len(str(clin_record.ALT))):
                             print "REF length inconsistent"
                             print "Match Record:",
-                            print genomeRecord
+                            print genome_record
                             print "Clin Record:",
-                            print clinRecord
+                            print clin_record
                             print "\n"
-                            genomeRecord = genomeFile.next()
-                            clinRecord = clinFile.next()
-                        #Don't include if the REF has different length and represents insertion, deletion, etc
+                            genome_record = genome_file.next()
+                            clin_record = clin_file.next()
+                        #Don't include if the REF has different length and
+                            #represents insertion, deletion, etc
                         else:
-                            genomeRecord = genomeFile.next()
-                            clinRecord = clinFile.next()
-        elif clinRecord.CHROM > genomeRecord.CHROM:
+                            genome_record = genome_file.next()
+                            clin_record = clin_file.next()
+        elif clin_record.CHROM > genome_record.CHROM:
             #If the ClinVar chromosome is greater, advance the genome's file
-            genomeRecord = genomeFile.next()
+            genome_record = genome_file.next()
         else:
             #If the genome's chromosome is greater, advance the ClinVar file
-            clinRecord = clinFile.next()
+            clin_record = clin_file.next()
             
 
 if __name__ == "__main__":
