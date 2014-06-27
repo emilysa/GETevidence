@@ -25,11 +25,20 @@ CHROM_INDEX = {"1" : 1,
                "Y" : 24,
                "M" : 25
                }
-
+CLNSIG_INDEX = {0 : "unknown",
+                1 : "untested",
+                2 : "non-pathogenic",
+                3 : "probably non-pathogenic",
+                4 : "probably pathogenic",
+                5 : "pathogenic",
+                6 : "affecting drug response",
+                7 : "affecting histocompatibility",
+                255 : "other"
+                }
 def main():
     '''Takes two .vcf files and returns matches'''
     clinvar = "clinvar-latest.vcf"
-    genome = "hu42D651.vcf"
+    genome = "hu4040B8.vcf"
     clin_file = open(clinvar, 'r')
     genome_file = open(genome, 'r')
     clin_record = clin_file.next()
@@ -73,29 +82,36 @@ def main():
         for i in info_split:
             parse_info = i.split("=")
             if parse_info[0] == "CLNSIG":
-                print parse_info[1]
-                if "," in parse_info[1]:
-                    comma_split = parse_info[1].split(",")
-                    parse_list = []
-                    for j in comma_split:
-                        if "|" in j:
-                            multi_split = j.split("|")
-                            parse_list.append(multi_split)
-                        else:
-                            parse_list.append(j)
-                    print parse_list
-                elif "|" in parse_info[1]:
-                    pipe_split = parse_info[1].split("|")
-                    print pipe_split
-                else:
-                    print parse_info[1]
-                print "\n"
+                split = parse_info[1].replace("|", ",")
+                values = split.split(",")
+                for i in values:
+                    int_i = int(i)
+                    if int_i >= 5 or int_i == 0:
+                        print CLNSIG_INDEX[int_i]
+                        return True
+    def get_clnalle():
+        global info_split
+        info_split = clin_info.split(";")
+        for i in info_split:
+            parse_info = i.split("=")
+            if parse_info[0] == "CLNALLE":
+                split = parse_info[1].split(",")
+                for i in split:
+                    print i
+                    if int(i) == 0:
+                        print "REF:"
+                        print clin_ref, genome_ref
+                    else:
+                        print "ALT:"
+                        print clin_alt, genome_alt
     def print_line():
-        print "Genome:",
-        print genome_line[0], genome_pos,
-        print "Clinvar:",
-        print clin_line[0], clin_pos
-        get_clnsig()
+        if get_clnsig():
+            print "Genome:",
+            print genome_line[0], genome_pos, genome_ref, genome_alt
+            print "Clinvar:",
+            print clin_line[0], clin_pos, clin_ref, clin_alt
+            get_clnsig()
+            get_clnalle()
     '''Takes two .vcf files and returns matches'''
     #Check to see if chromosome match
     #While the clinvar file is behind the genome file's position
@@ -118,8 +134,7 @@ def main():
             else:
                 #Perfect matches 
                 if clin_alt == genome_alt and clin_ref == genome_ref:
-                    #print_line()
-                    None
+                    print_line()
                 else:
                     #Edge Cases and how we're handling them
                     #If ALT = <CGA_CNVWIN>, filter this out
