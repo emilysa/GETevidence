@@ -11,7 +11,6 @@ CHROM_INDEX = {"1": 1, "2": 2, "3": 3, "4": 4, "5": 5,
                "16": 16, "17": 17, "18": 18, "19": 19, "20": 20,
                "21": 21, "22": 22, "X": 23, "Y": 24, "M": 25,
            }
-
 CLNSIG_INDEX = {0 : "unknown",
                 1 : "untested",
                 2 : "non-pathogenic",
@@ -52,6 +51,7 @@ def genome_vcf_line_alleles(vcf_line):
                re.split('[|/]', genome_data['GT'])
                if x != '.']
     return alleles
+
 
 def main():
     '''Takes two .vcf files and returns matches'''
