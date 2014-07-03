@@ -1,5 +1,5 @@
-'''Generator that takes two .vcf files and displays matches'''
 import re
+import csv
 from vcf_parsing_tools import (ClinVarEntry, ClinVarAllele, ClinVarData)
 
 CLINVAR_FILEPATH = "clinvar-latest.vcf"
@@ -52,7 +52,6 @@ def genome_vcf_line_alleles(vcf_line):
                if x != '.']
     return alleles
 
-
 def main():
     '''Takes two .vcf files and returns matches'''
     clin_file = open(CLINVAR_FILEPATH, 'r')
@@ -60,6 +59,11 @@ def main():
     clin_curr_line = clin_file.next()
     genome_curr_line = genome_file.next()
 
+    csvfile = open('match.csv', 'w')
+    a = csv.writer(csvfile)
+    header = ("Chromosome", "Position", "ACC URL")
+    a.writerow(header)
+    
     # Ignores all the lines that start with a hashtag
     while clin_curr_line.startswith("#"):
         clin_curr_line = clin_file.next()
@@ -74,11 +78,17 @@ def main():
 
         if clin_curr_pos['chrom'] > genome_curr_pos['chrom']:
             # If the ClinVar chromosome is greater, advance the genome's file
-            genome_curr_line = genome_file.next()
+            try:
+                genome_curr_line = genome_file.next()
+            except StopIteration:
+                break
 
         elif clin_curr_pos['chrom'] < genome_curr_pos['chrom']:
             # If the genome's chromosome is greater, advance the ClinVar file
-            clin_curr_line = clin_file.next()
+            try:
+                clin_curr_line = clin_file.next()
+            except StopIteration:
+                break
 
         if clin_curr_pos['chrom'] == genome_curr_pos['chrom']:
 
@@ -113,7 +123,7 @@ def main():
                                 genome_allele)))
                         if is_match:
                             clinvar_data.alleles[i][1] += 1
-
+                            
                 for i in range(len(clinvar_data.alleles)):
                     zygosity = "???"
                     if (clinvar_data.alleles[i][1] and
@@ -127,17 +137,33 @@ def main():
                             if clinvar_data.alleles[i][1] == 1:
                                 # Hemizygous, e.g. X chrom when XY.
                                 zygosity = "Hem"
-                        print '\t'.join([zygosity,
-                                         str(clinvar_data.alleles[i][2])])
-
+                                
+                        clnsig = [int(clinvar_data.alleles[i][2].entries[x].sig) \
+                                  for x in range(len(clinvar_data.alleles[i][2].entries))]
+                        
+                        acc = [clinvar_data.alleles[i][2].entries[n].acc \
+                               for n in range(len(clnsig)) \
+                               if clnsig[n] == 4 or clnsig[n] == 5]
+                        if acc:
+                            url_list = []
+                            for m in acc:
+                                url = "http://www.ncbi.nlm.nih.gov/clinvar/" + \
+                                        str(m)
+                                
+                                data = (genome_curr_pos['chrom'],
+                                        genome_curr_pos['pos'],
+                                        zygosity, url)
+                                a.writerow(data)
+                                print data
                 # Known bug: A couple ClinVar entries are swapped
                 # relative to the genome: what the genome calls
                 # reference, ClinVar calls alternate (and visa versa).
                 # Currently these rare situations result in a non-match.
-
-                genome_curr_line = genome_file.next()
-                clin_curr_line = clin_file.next()
-
-
+                try:
+                    genome_curr_line = genome_file.next()
+                    clin_curr_line = clin_file.next()
+                except StopIteration:
+                    break
+    csvfile.close()
 if __name__ == "__main__":
     main()
