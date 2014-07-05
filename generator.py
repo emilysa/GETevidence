@@ -1,9 +1,16 @@
 import re
 import csv
 from vcf_parsing_tools import (ClinVarEntry, ClinVarAllele, ClinVarData)
+from optparse import OptionParser
+
+parser = OptionParser()
+parser.add_option("-f", "--file", dest="filename",
+                  help="read data from FILENAME")
+
+(options, args) = parser.parse_args()
 
 CLINVAR_FILEPATH = "clinvar-latest.vcf"
-GENOME_FILEPATH = "hu4040B8.vcf"
+GENOME_FILEPATH = options.filename
 
 CHROM_INDEX = {"1": 1, "2": 2, "3": 3, "4": 4, "5": 5,
                "6": 6, "7": 7, "8": 8, "9": 9, "10": 10,
@@ -58,10 +65,12 @@ def main():
     genome_file = open(GENOME_FILEPATH, 'r')
     clin_curr_line = clin_file.next()
     genome_curr_line = genome_file.next()
-
-    csvfile = open('match.csv', 'w')
+    split_file = options.filename.split(".")
+    file_name = split_file[0]
+    output_file = file_name + "matchrecord.csv"
+    csvfile = open(output_file, 'w')
     a = csv.writer(csvfile)
-    header = ("Chromosome", "Position", "ACC URL")
+    header = ("Chromosome", "Position", "Zygosity", "ACC URL")
     a.writerow(header)
     
     # Ignores all the lines that start with a hashtag
