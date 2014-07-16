@@ -41,23 +41,23 @@ should be "requirements".) Install the Python packages required for development 
 
 ### Set up django ###
 
-Install django: 'sudo pip install -e django-trunk/' (omit the sudo if in virtualenv).
+Install django: `sudo pip install -e django-trunk/` (omit the sudo if in virtualenv).
 
 ### Set up rabbitmq and celery ###
 
 Celery requires a message broker. This broker acts a middleman sending and receiving messages to Celery workers
 who in turn process tasks as they receive them.  Celery recommends using RabbitMQ.
 
-1. Install RabbitMQ: 'sudo apt-get install rabbitmq-server'
-2. Once installed, starting the server is as simple as: 'rabbitmq-server' 
-or you can start in the background with 'rabbitmq-server -detached'
-3. To stop the server use 'rabbitmqctl-stop'
+1. Install RabbitMQ: `sudo apt-get install rabbitmq-server`
+2. Once installed, starting the server is as simple as: `rabbitmq-server`
+or you can start in the background with `rabbitmq-server -detached`
+3. To stop the server use `rabbitmqctl-stop`
 
-4. Install Celery: 'pip install celery'
+4. Install Celery: `pip install celery`
 
 ### Launch Celery ###
 
 To launch celery, from the project/directory run:
 
-1. 'celery -A framework.celery.celery worker -l debug' or 
-2. 'celery multi start testing -l info' to run celery in the background.
+1. `celery -A framework.celery.celery worker -l debug` or 
+2. `celery multi start testing -l info` to run celery in the background.
