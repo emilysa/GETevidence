@@ -61,3 +61,5 @@ To launch celery, from the project/directory run:
 
 1. `celery -A framework.celery.celery worker -l debug` or 
 2. `celery multi start testing -l info` to run celery in the background.
+
+You **should** be able to run the program at this point, but this project is still in progress so is not yet functional.
