@@ -17,4 +17,3 @@ def remove_letter():
             print removed
             newfile.write(removed)
     newfile.close()
-
