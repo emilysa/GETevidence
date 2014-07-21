@@ -1,0 +1,43 @@
+[2014-07-11 19:21:47,491: INFO/MainProcess] sync with testing@attic.madprime.org
+[2014-07-11 19:22:17,840: ERROR/MainProcess] Received unregistered task of type 'tasks.add'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you are using relative imports?
+Please see http://bit.ly/gLye1c for more information.
+
+The full contents of the message body was:
+{'utc': True, 'chord': None, 'args': (4, 4), 'retries': 0, 'expires': None, 'task': 'tasks.add', 'callbacks': None, 'errbacks': None, 'timelimit': (None, None), 'taskset': None, 'kwargs': {}, 'eta': None, 'id': 'c6a6dd75-846d-441b-8308-f3d94cf8c418'} (209b)
+Traceback (most recent call last):
+  File "/home/emilysa/.virtualenvs/summer/local/lib/python2.7/site-packages/celery/worker/consumer.py", line 455, in on_task_received
+    strategies[name](message, body,
+KeyError: 'tasks.add'
+[2014-07-16 16:15:34,508: INFO/MainProcess] sync with testing@attic.madprime.org
+[2014-07-17 14:37:58,275: INFO/MainProcess] sync with testing@attic.madprime.org
+[2014-07-17 15:28:23,508: ERROR/MainProcess] Received unregistered task of type 'framework.file_process.remove_a.remove_letter'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you are using relative imports?
+Please see http://bit.ly/gLye1c for more information.
+
+The full contents of the message body was:
+{'utc': True, 'chord': None, 'args': [], 'retries': 0, 'expires': None, 'task': 'framework.file_process.remove_a.remove_letter', 'callbacks': None, 'errbacks': None, 'timelimit': (None, None), 'taskset': None, 'kwargs': {}, 'eta': None, 'id': '9504af9c-d512-4818-a64e-897a66695840'} (241b)
+Traceback (most recent call last):
+  File "/home/emilysa/.virtualenvs/summer/local/lib/python2.7/site-packages/celery/worker/consumer.py", line 455, in on_task_received
+    strategies[name](message, body,
+KeyError: 'framework.file_process.remove_a.remove_letter'
+[2014-07-17 19:55:24,643: INFO/MainProcess] sync with celery@attic.madprime.org
+[2014-07-17 20:14:31,724: ERROR/MainProcess] Received unregistered task of type 'framework.tasker.tasks.gen_prime'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you are using relative imports?
+Please see http://bit.ly/gLye1c for more information.
+
+The full contents of the message body was:
+{'utc': True, 'chord': None, 'args': (10000,), 'retries': 0, 'expires': None, 'task': 'framework.tasker.tasks.gen_prime', 'callbacks': None, 'errbacks': None, 'timelimit': (None, None), 'taskset': None, 'kwargs': {}, 'eta': None, 'id': '784f62b2-eaa2-4f5d-8889-4ad6f839c498'} (231b)
+Traceback (most recent call last):
+  File "/home/emilysa/.virtualenvs/summer/local/lib/python2.7/site-packages/celery/worker/consumer.py", line 455, in on_task_received
+    strategies[name](message, body,
+KeyError: 'framework.tasker.tasks.gen_prime'

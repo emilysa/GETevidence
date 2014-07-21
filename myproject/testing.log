@@ -1,0 +1,51 @@
+[2014-07-11 19:21:47,402: WARNING/MainProcess] /home/emilysa/.virtualenvs/summer/local/lib/python2.7/site-packages/celery/apps/worker.py:161: CDeprecationWarning: 
+Starting from version 3.2 Celery will refuse to accept pickle by default.
+
+The pickle serializer is a security concern as it may give attackers
+the ability to execute any command.  It's important to secure
+your broker from unauthorized access when using pickle, so we think
+that enabling pickle should require a deliberate action and not be
+the default choice.
+
+If you depend on pickle then you should set a setting to disable this
+warning and to be sure that everything will continue working
+when you upgrade to Celery 3.2::
+
+    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+You must only enable the serializers that you will actually use.
+
+
+  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
+[2014-07-11 19:21:47,454: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
+[2014-07-11 19:21:47,485: INFO/MainProcess] mingle: searching for neighbors
+[2014-07-11 19:21:48,497: INFO/MainProcess] mingle: sync with 1 nodes
+[2014-07-11 19:21:48,497: INFO/MainProcess] mingle: sync complete
+[2014-07-11 19:21:48,508: WARNING/MainProcess] testing@attic.madprime.org ready.
+[2014-07-17 15:27:55,610: ERROR/MainProcess] Received unregistered task of type 'framework.file_process.remove_a.remove_letter'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you are using relative imports?
+Please see http://bit.ly/gLye1c for more information.
+
+The full contents of the message body was:
+{'utc': True, 'chord': None, 'args': [], 'retries': 0, 'expires': None, 'task': 'framework.file_process.remove_a.remove_letter', 'callbacks': None, 'errbacks': None, 'timelimit': (None, None), 'taskset': None, 'kwargs': {}, 'eta': None, 'id': '3916a556-d4bf-476a-bf87-ed3b1e24a7ed'} (241b)
+Traceback (most recent call last):
+  File "/home/emilysa/.virtualenvs/summer/local/lib/python2.7/site-packages/celery/worker/consumer.py", line 455, in on_task_received
+    strategies[name](message, body,
+KeyError: 'framework.file_process.remove_a.remove_letter'
+[2014-07-17 19:55:24,643: INFO/MainProcess] sync with celery@attic.madprime.org
+[2014-07-17 20:12:17,712: ERROR/MainProcess] Received unregistered task of type 'framework.tasker.tasks.gen_prime'.
+The message has been ignored and discarded.
+
+Did you remember to import the module containing this task?
+Or maybe you are using relative imports?
+Please see http://bit.ly/gLye1c for more information.
+
+The full contents of the message body was:
+{'utc': True, 'chord': None, 'args': (50000,), 'retries': 0, 'expires': None, 'task': 'framework.tasker.tasks.gen_prime', 'callbacks': None, 'errbacks': None, 'timelimit': (None, None), 'taskset': None, 'kwargs': {}, 'eta': None, 'id': '41528596-3217-44af-9e4e-9d20bfb7eddf'} (231b)
+Traceback (most recent call last):
+  File "/home/emilysa/.virtualenvs/summer/local/lib/python2.7/site-packages/celery/worker/consumer.py", line 455, in on_task_received
+    strategies[name](message, body,
+KeyError: 'framework.tasker.tasks.gen_prime'

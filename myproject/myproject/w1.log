@@ -1,46 +1,58 @@
-[2014-07-09 20:50:27,322: WARNING/MainProcess] /home/emilysa/.virtualenvs/summer/local/lib/python2.7/site-packages/celery/apps/worker.py:161: CDeprecationWarning: 
-Starting from version 3.2 Celery will refuse to accept pickle by default.
+[2014-07-11 18:59:04,635: INFO/MainProcess] sync with celery@attic.madprime.org
+[2014-07-11 19:02:55,208: ERROR/MainProcess] Received unregistered task of type 'tasks.add'.
+The message has been ignored and discarded.
 
-The pickle serializer is a security concern as it may give attackers
-the ability to execute any command.  It's important to secure
-your broker from unauthorized access when using pickle, so we think
-that enabling pickle should require a deliberate action and not be
-the default choice.
+Did you remember to import the module containing this task?
+Or maybe you are using relative imports?
+Please see http://bit.ly/gLye1c for more information.
 
-If you depend on pickle then you should set a setting to disable this
-warning and to be sure that everything will continue working
-when you upgrade to Celery 3.2::
+The full contents of the message body was:
+{'utc': True, 'chord': None, 'args': (4, 4), 'retries': 0, 'expires': None, 'task': 'tasks.add', 'callbacks': None, 'errbacks': None, 'timelimit': (None, None), 'taskset': None, 'kwargs': {}, 'eta': None, 'id': 'e18e86a7-827c-4902-96df-1568d6f6b32c'} (209b)
+Traceback (most recent call last):
+  File "/home/emilysa/.virtualenvs/summer/local/lib/python2.7/site-packages/celery/worker/consumer.py", line 455, in on_task_received
+    strategies[name](message, body,
+KeyError: 'tasks.add'
+[2014-07-11 19:07:25,243: INFO/MainProcess] sync with w2@attic.madprime.org
+[2014-07-11 19:10:30,747: ERROR/MainProcess] Received unregistered task of type 'tasks.add'.
+The message has been ignored and discarded.
 
-    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+Did you remember to import the module containing this task?
+Or maybe you are using relative imports?
+Please see http://bit.ly/gLye1c for more information.
 
-You must only enable the serializers that you will actually use.
+The full contents of the message body was:
+{'utc': True, 'chord': None, 'args': (4, 2), 'retries': 0, 'expires': None, 'task': 'tasks.add', 'callbacks': None, 'errbacks': None, 'timelimit': (None, None), 'taskset': None, 'kwargs': {}, 'eta': None, 'id': '10b2bb8d-267e-4c59-b491-c4a00280818d'} (209b)
+Traceback (most recent call last):
+  File "/home/emilysa/.virtualenvs/summer/local/lib/python2.7/site-packages/celery/worker/consumer.py", line 455, in on_task_received
+    strategies[name](message, body,
+KeyError: 'tasks.add'
+[2014-07-16 16:10:08,725: INFO/MainProcess] sync with testing@attic.madprime.org
+[2014-07-16 16:20:53,615: INFO/MainProcess] sync with testing@attic.madprime.org
+[2014-07-17 15:25:26,728: ERROR/MainProcess] Received unregistered task of type 'framework.file_process.remove_a.remove_letter'.
+The message has been ignored and discarded.
 
+Did you remember to import the module containing this task?
+Or maybe you are using relative imports?
+Please see http://bit.ly/gLye1c for more information.
 
-  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
-[2014-07-09 20:50:27,355: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
-[2014-07-09 20:50:27,369: INFO/MainProcess] mingle: searching for neighbors
-[2014-07-09 20:50:28,377: INFO/MainProcess] mingle: all alone
-[2014-07-09 20:50:28,392: WARNING/MainProcess] w1@attic.madprime.org ready.
-[2014-07-09 20:57:57,027: WARNING/MainProcess] /home/emilysa/.virtualenvs/summer/local/lib/python2.7/site-packages/celery/apps/worker.py:161: CDeprecationWarning: 
-Starting from version 3.2 Celery will refuse to accept pickle by default.
+The full contents of the message body was:
+{'utc': True, 'chord': None, 'args': [], 'retries': 0, 'expires': None, 'task': 'framework.file_process.remove_a.remove_letter', 'callbacks': None, 'errbacks': None, 'timelimit': (None, None), 'taskset': None, 'kwargs': {}, 'eta': None, 'id': '5e638ccb-2f60-4a49-b730-419be19dd17f'} (241b)
+Traceback (most recent call last):
+  File "/home/emilysa/.virtualenvs/summer/local/lib/python2.7/site-packages/celery/worker/consumer.py", line 455, in on_task_received
+    strategies[name](message, body,
+KeyError: 'framework.file_process.remove_a.remove_letter'
+[2014-07-17 17:47:52,447: INFO/MainProcess] sync with tester@attic.madprime.org
+[2014-07-17 19:57:44,805: ERROR/MainProcess] Received unregistered task of type 'framework.file_process.remove_a.remove_letter'.
+The message has been ignored and discarded.
 
-The pickle serializer is a security concern as it may give attackers
-the ability to execute any command.  It's important to secure
-your broker from unauthorized access when using pickle, so we think
-that enabling pickle should require a deliberate action and not be
-the default choice.
+Did you remember to import the module containing this task?
+Or maybe you are using relative imports?
+Please see http://bit.ly/gLye1c for more information.
 
-If you depend on pickle then you should set a setting to disable this
-warning and to be sure that everything will continue working
-when you upgrade to Celery 3.2::
-
-    CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
-
-You must only enable the serializers that you will actually use.
-
-
-  warnings.warn(CDeprecationWarning(W_PICKLE_DEPRECATED))
-[2014-07-09 20:57:57,060: INFO/MainProcess] Connected to amqp://guest:**@127.0.0.1:5672//
-[2014-07-09 20:57:57,074: INFO/MainProcess] mingle: searching for neighbors
-[2014-07-09 20:57:58,085: INFO/MainProcess] mingle: all alone
-[2014-07-09 20:57:58,096: WARNING/MainProcess] w1@attic.madprime.org ready.
+The full contents of the message body was:
+{'utc': True, 'chord': None, 'args': [], 'retries': 0, 'expires': None, 'task': 'framework.file_process.remove_a.remove_letter', 'callbacks': None, 'errbacks': None, 'timelimit': (None, None), 'taskset': None, 'kwargs': {}, 'eta': None, 'id': '5ccbb977-f8a3-4a8d-8050-918a8dd3c82b'} (241b)
+Traceback (most recent call last):
+  File "/home/emilysa/.virtualenvs/summer/local/lib/python2.7/site-packages/celery/worker/consumer.py", line 455, in on_task_received
+    strategies[name](message, body,
+KeyError: 'framework.file_process.remove_a.remove_letter'
+[2014-07-17 20:16:35,821: INFO/MainProcess] sync with celery@attic.madprime.org
