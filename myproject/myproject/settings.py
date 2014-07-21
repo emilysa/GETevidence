@@ -80,9 +80,11 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
-CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend',
 
-CELERY_RESULT_BACKEND='djcelery.backends.cache:CacheBackend',
+# Configure Celery backend (pick one)
+CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+# CELERY_RESULT_BACKEND = 'djcelery.backends.cache:CacheBackend'
+
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'nu*@78!uk9o5(nyiqfgj1*kn9cka0fwuz@d8@w#bjz^%jm-vgm'
 
