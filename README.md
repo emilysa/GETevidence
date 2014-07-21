@@ -45,7 +45,7 @@ Celery requires a message broker. This broker acts a middleman sending and recei
 who in turn process tasks as they receive them.  Celery recommends using RabbitMQ.
 
 1. Install RabbitMQ: `sudo apt-get install rabbitmq-server`
-2. Ubuntu automatically begins running a rabbit server once this is installed.
+2. Ubuntu automatically begins running a rabbit server in the background once this is installed.
 3. Starting the server is as simple as: `rabbitmq-server` (runs in the foreground), or you can start it in the background
 with `rabbitmq-server -detached`.  To stop the server use `rabbitmqctl stop`.
 
