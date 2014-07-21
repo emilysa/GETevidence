@@ -7,6 +7,12 @@
 *.log
 *.pid
 
+# Ignore sqlite3
+*.sqlite3
+
+# Ignore media directory
+media/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
