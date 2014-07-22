@@ -2,29 +2,29 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Minimal Django File Upload Example</title>	
+		<title>Django File Upload and Processing with Celery Example</title>	
 	</head>
 
 	<body>
-		<!-- List of uploaded documents -->
-		{% if documents %}
+    {# List uploaded files #}
+		{% if uploadfiles %}
 			<ul>
-			{% for document in documents %}
-				<li><a href="{{ document.docfile.url }}">{{ document.docfile.name }}</a></li>
+			{% for uploadfile in uploadfiles %}
+				<li><a href="{{ uploadfile.uploadfile.url }}">{{ uploadfile.uploadfile.name }}</a></li>
 			{% endfor %}
 			</ul>
 		{% else %}
-			<p>No documents.</p>
+			<p>No files uploaded.</p>
 		{% endif %}
 
-		<!-- Upload form. Note enctype attribute! -->
-		<form action="{% url "list" %}" method="post" enctype="multipart/form-data">
+		{# Note enctype 'multipart/form-data' for upload of files. #}
+		<form action="{% url 'list' %}" method="post" enctype="multipart/form-data">
 			{% csrf_token %}
-			<p>{{ form.non_field_errors }}</p>
-			<p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
-			<p>
-				{{ form.docfile.errors }}
-				{{ form.docfile }}
+      <p>{{ form.non_field_errors }}</p>
+      <p>{{ form.uploadfile.label_tag }} {{ form.uploadfile.help_text }}</p>
+      <p>
+				{{ form.uploadfile.errors }}
+				{{ form.uploadfile }}
 			</p>
 			<p><input type="submit" value="Upload" /></p>
 		</form>
