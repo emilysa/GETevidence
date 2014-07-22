@@ -17,6 +17,7 @@ def timestamp():
         datetime_str = str(datetime.now()) + '\n'
         logfile.write(datetime_str)
 
+@shared_task
 def gzip_compress(file_in):
     input_file = file_in.uploadfile
     # output_file = file_in.processedfile
