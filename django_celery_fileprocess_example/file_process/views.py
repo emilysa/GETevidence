@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 
 from .models import UploadFile
 from .forms import UploadForm
-from .tasks import timestamp
+from .tasks import timestamp, gzip_compress
 
 def list(request):
     # Handle file upload
@@ -16,7 +16,7 @@ def list(request):
             newfile = UploadFile(uploadfile = request.FILES['uploadfile'])
             newfile.save()
             timestamp.delay()
-
+            gzip_compress(file_in = newfile)
             # Redirect to the uploaded files list after POST
             return HttpResponseRedirect(reverse('file_process.views.list'))
     else:
